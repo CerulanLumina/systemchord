@@ -1,0 +1,8 @@
+[Unit]
+Description=Sends commands in response to chords--any combination of keys.
+
+[Service]
+ExecStart=/usr/bin/systemchord
+
+[Install]
+WantedBy=default.target
