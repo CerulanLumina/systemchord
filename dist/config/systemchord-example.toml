@@ -1,0 +1,8 @@
+[[executors]]
+backend = "evdev"
+device = "/dev/input/by-id/usb-Keychron_Keychron_Q6_Max-event-kbd"
+shell = ["/bin/fish", "-c"]
+
+[[executors.chords]]
+sequence = ["kp8"]
+action = "huectl light set --off 3"

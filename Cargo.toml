@@ -1,24 +1,33 @@
 [package]
 name = "systemchord"
-version = "0.1.0"
+version = "0.2.0-beta"
 edition = "2021"
 description = "Sends commands in response to 'chords', which are any combination of keys."
-readme = "Sends commands in response to 'chords', which are any combination of keys."
+readme = "README.md"
 authors = ["CerulanLumina <CerulanLumina@users.noreply.github.com>"]
 repository = "https://github.com/CerulanLumina/systemchord"
 license = "MPL-2.0"
 
 [dependencies]
-anyhow = "1.0.86"
-serde = { version = "1.0.202", features = ["derive"] }
-toml = "0.8.13"
-directories = "5.0.1"
-clap = { version = "4.5.4", features = ["derive"] }
-pretty_env_logger = "0.5.0"
-log = "0.4.21"
-crossbeam-channel = "0.5.13"
-cfg-if = "1.0.0"
+anyhow = "1"
+derive_more = { version = "1.0.0-beta.6", features = ["display"] }
+serde = { version = "1", features = ["derive"] }
+toml = "~0.8"
+directories = "5"
+clap = { version = "4", features = ["derive"] }
+pretty_env_logger = "~0.5"
+log = "~0.4"
+crossbeam-channel = "~0.5"
+cfg-if = "1"
+thiserror = "1"
+itertools = { version = "0.13.0", default-features = false }
 
+[features]
+backend-evdev = ["dep:evdev"]
 
 [target.'cfg(unix)'.dependencies]
-evdev = "0.12.2"
+evdev = { version = "~0.12", optional = true }
+
+[dev-dependencies]
+cool_asserts = "2.0.3"
+maplit = "1.0.2"

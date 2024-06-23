@@ -1,4 +1,4 @@
-pkgname='systemchord'
+pkgname='systemchord-git'
 pkgver=git
 pkgrel=1
 pkgdesc='Sends commands in response to chords--any combination of keys.'
@@ -7,6 +7,8 @@ license=("MPL-2.0")
 arch=("x86_64")
 source=("$pkgname::git+https://github.com/CerulanLumina/systemchord.git")
 sha256sums=(SKIP)
+provides=('systemchord')
+conflicts=('systemchord')
 
 pkgver() {
     cd "$pkgname"
@@ -24,15 +26,15 @@ prepare() {
 build() {
     export RUSTUP_TOOLCHAIN=stable
     export CARGO_TARGET_DIR=target
-    cargo build --frozen --release
+    cargo build --frozen --release --features backend-evdev
 }
 
 check() {
     export RUSTUP_TOOLCHAIN=stable
-    cargo test --frozen --all-features
+    cargo test --frozen --features backend-evdev
 }
 
 package() {
-    install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
-    install -Dm0644 -t "$pkgdir/usr/lib/systemd/user/" "$srcdir/$pkgname/dist/systemd/$pkgname.service"
+    install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/systemchord"
+    install -Dm0644 -t "$pkgdir/usr/lib/systemd/user/" "$srcdir/$pkgname/dist/systemd/systemchord.service"
 }
